@@ -37,6 +37,7 @@
             data: JSON.stringify(boardUpdate),
             contentType: "application/json; charset=utf-8"
         }).done((res) => {
+            alert("게시글 수정 완료");
             location.href = "/";
         }).fail((res) => {
             alert(res.responseJSON.msg);
