@@ -13,6 +13,12 @@ import java.util.List;
 public class BoardApiController {
     private final BoardRepository boardRepository;
 
+    @PutMapping("/api/boards/{id}")
+    public ApiUtil<?> update(@PathVariable int id, @RequestBody BoardRequest.UpdateDTO requestDTO){
+        boardRepository.update(requestDTO, id);
+        return new ApiUtil<>(null);
+    }
+
     @PostMapping("/api/boards")
     public ApiUtil<?> write(@RequestBody BoardRequest.WriteDTO requestDTO){ // @requestbody = json 데이터를 받겠다는 뜻이다.
         boardRepository.insert(requestDTO);
