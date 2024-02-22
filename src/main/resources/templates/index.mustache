@@ -12,7 +12,7 @@
             <th></th>
         </tr>
         </thead>
-        <tbody>
+        <tbody id="board-box">
 
         </tbody>
     </table>
@@ -28,6 +28,13 @@
             .done((res)=>{
                 console.log("통신 성공");
                 console.log(res);
+
+                let boardList = res.body;
+
+                // for(board of boardList){}로 써도 된다.
+                boardList.forEach((board)=>{
+                    $("#board-box").append(render(board));
+                }) // JSON코드로 CSR함
             })
             .fail((res)=>{
                 // console.log("통신 실패");
@@ -36,18 +43,16 @@
                 location.href = "/loginForm";
             }); // 200이 되면 done 나머지 fail
 
-    function getBoard(){
-        return `<tr id="board-5">
-                <td>5</td>
-                <td>제목5</td>
-                <td>내용5</td>
-                <td>홍길동</td>
+    function render(board){
+        return `<tr id="board-${board.id}">
+                <td>${board.id}</td>
+                <td>${board.title}</td>
+                <td>${board.content}</td>
+                <td>${board.author}</td>
                 <td>
                     <div class="d-flex">
-                        <form action="#">
-                            <button class="btn btn-danger">삭제</button>
-                        </form>
-                        <form action="/board/1/updateForm" method="get">
+                           <button onclick="del(${board.id})" class="btn btn-danger">삭제</button>
+                        <form action="/board/${board.id}/updateForm" method="get">
                             <button class="btn btn-warning">수정</button>
                         </form>
                     </div>
