@@ -6,10 +6,12 @@
         <div class="card-body">
             <form action="#" method="post">
                 <div class="mb-3">
-                    <input type="text" class="form-control" placeholder="Enter author" id="author" value="{{board.author}}">
+                    <input type="text" class="form-control" placeholder="Enter author" id="author"
+                           value="{{board.author}}">
                 </div>
                 <div class="mb-3">
-                    <input type="text" class="form-control" placeholder="Enter title" id="title" value="{{board.title}}">
+                    <input type="text" class="form-control" placeholder="Enter title" id="title"
+                           value="{{board.title}}">
                 </div>
                 <div class="mb-3">
                     <textarea class="form-control" rows="5" id="content">{{board.content}}</textarea>
@@ -22,24 +24,24 @@
 
 <script>
 
-        function btnUpdate(){ // 비지니스 로직: INPUT 태그에 값 들고 옴, JSON 변경, AJAX요청, 실패했을 때(ALERT메시지) OR 성공했을 때(메인페이지 리다이렉션)
+    function btnUpdate() { // 비지니스 로직: INPUT 태그에 값 들고 옴, JSON 변경, AJAX요청, 실패했을 때(ALERT메시지) OR 성공했을 때(메인페이지 리다이렉션)
         let boardUpdate = {
-        title: $("#title").val(),
-        content: $("#content").val(),
-        author: $("#author").val(),
-    };
+            title: $("#title").val(),
+            content: $("#content").val(),
+            author: $("#author").val(),
+        };
 
         $.ajax({
-        url: "/api/boards/{{board.id}}",
-        type: "put",
-        data: JSON.stringify(boardUpdate),
-        contentType: "application/json; charset=utf-8"
-    }).done((res)=>{
-        location.href = "/";
-    }).fail((res)=>{
-        alert(res.responseJSON.msg);
-    });
-        }
+            url: "/api/boards/{{board.id}}",
+            type: "put",
+            data: JSON.stringify(boardUpdate),
+            contentType: "application/json; charset=utf-8"
+        }).done((res) => {
+            location.href = "/";
+        }).fail((res) => {
+            alert(res.responseJSON.msg);
+        });
+    }
 
 </script>
 
