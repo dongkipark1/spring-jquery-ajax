@@ -6,18 +6,39 @@
         <div class="card-body">
             <form action="#">
                 <div class="mb-3">
-                    <input type="text" class="form-control" placeholder="Enter author" name="author">
+                    <input type="text" class="form-control" placeholder="Enter author" id="author">
                 </div>
                 <div class="mb-3">
-                    <input type="text" class="form-control" placeholder="Enter title" name="title">
+                    <input type="text" class="form-control" placeholder="Enter title" id="title">
                 </div>
                 <div class="mb-3">
-                    <textarea class="form-control" rows="5" name="content"></textarea>
+                    <textarea class="form-control" rows="5" id="content"></textarea>
                 </div>
-                <button type="submit" class="btn btn-primary form-control">글쓰기완료</button>
+                <button type="button" onclick="btnWrite()" class="btn btn-primary form-control">글쓰기완료</button>
             </form>
         </div>
     </div>
 </div>
+
+<script>
+    function btnWrite(){ // 비지니스 로직: INPUT 태그에 값 들고 옴, JSON 변경, AJAX요청, 실패했을 때(ALERT메시지) OR 성공했을 때(메인페이지 리다이렉션)
+       let board = {
+           title: $("#title").val(),
+           content: $("#content").val(),
+           author: $("#author").val()
+        };
+
+        $.ajax({
+            url: "/api/boards",
+            type: "post",
+            data: JSON.stringify(board),
+            contentType: "application/json; charset=utf-8"
+        }).done((res)=>{
+            location.href = "/";
+        }).fail((res)=>{
+            alert(res.responseJSON.msg);
+        });
+    }
+</script>
 
 {{> layout/footer}}
