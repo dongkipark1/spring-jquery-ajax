@@ -14,7 +14,7 @@ public class BoardApiController {
     private final BoardRepository boardRepository;
 
     @PutMapping("/api/boards/{id}")
-    public ApiUtil<?> update(@PathVariable int id, @RequestBody BoardRequest.UpdateDTO requestDTO){
+    public ApiUtil<?> update(@PathVariable Integer id, @RequestBody BoardRequest.UpdateDTO requestDTO){
         boardRepository.update(requestDTO, id);
         return new ApiUtil<>(null);
     }
